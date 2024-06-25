@@ -1,7 +1,7 @@
 import './employee_list_item.css'
 import { useState } from 'react'
 
-function EmployeeListItem({ name, salary }) {
+function EmployeeListItem({ name, salary, id, removeEmployee, addPromotion }) {
   const [promotion, setPromotion] = useState(false)
   return (
     <li
@@ -19,12 +19,19 @@ function EmployeeListItem({ name, salary }) {
         <button
           type='button'
           className='btn-cookie btn-sm '
-          onClick={() => setPromotion(!promotion)}
+          onClick={() => {
+            setPromotion(!promotion)
+            addPromotion(id)
+          }}
         >
           <i className='fas fa-cookie'></i>
         </button>
 
-        <button type='button' className='btn-trash btn-sm '>
+        <button
+          type='button'
+          className='btn-trash btn-sm '
+          onClick={() => removeEmployee(id)}
+        >
           <i className='fas fa-trash'></i>
         </button>
         <i className='fas fa-star'></i>

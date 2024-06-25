@@ -1,13 +1,22 @@
 import './employee_add_form.css'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
-function EmployeeAddForm() {
+function EmployeeAddForm({ addEmployee }) {
   const [name, setName] = useState('')
-  const [salary, setSalary] = useState(0)
+  const [salary, setSalary] = useState('')
   return (
     <div className='app-add-form'>
       <h3>Add new employee</h3>
-      <form className='add-form d-flex'>
+      <form
+        className='add-form d-flex'
+        onSubmit={(e) => {
+          e.preventDefault()
+          addEmployee(name, salary, uuidv4())
+          setName('')
+          setSalary(0)
+        }}
+      >
         <input
           type='text'
           className='form-control new-post-label'
