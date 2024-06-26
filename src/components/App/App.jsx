@@ -24,6 +24,7 @@ function App() {
     { name: 'Carl W.', salary: 5000, id: uuidv4(), promotion: false },
   ])
   const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState('')
 
   const addEmployee = (name, salary, id, promotion = false) => {
     if (!name || !salary) {
@@ -62,20 +63,32 @@ function App() {
   }
 
   //!# WAS HAVING PROBLEMS WITH THIS FUNCTIONALITY
+  const filterPost = (items, filter) => {
+    switch (filter) {
+      case 'promoted':
+        return items.filter((item) => item.promotion)
+      case 'moreThen1000':
+        return items.filter((item) => item.salary > 1000)
+      default:
+        return items
+    }
+  }
+
   const searchForEmployee = (str, data) => {
     if (!str) {
       return data
     }
-    return data.filter((empl) => empl.name.includes(str))
+    return data.filter((empl) => empl.name.toLowerCase().includes(str))
   }
-  const visibleEmp = searchForEmployee(search, data)
+  let visibleEmp = filterPost(searchForEmployee(search, data), filter)
+  //!# WAS HAVING PROBLEMS WITH THIS FUNCTIONALITY LOOK TOP|
 
   return (
     <div className='app'>
       <AppInfo total={data.length} willBePromoted={willBePromoted} />
       <div className='search-panel'>
         <SearchPanel setSearch={setSearch} />
-        <AppFilter />
+        <AppFilter setFilter={setFilter} />
       </div>
       <Employee_list
         data={visibleEmp}
