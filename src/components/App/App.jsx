@@ -23,6 +23,7 @@ function App() {
     },
     { name: 'Carl W.', salary: 5000, id: uuidv4(), promotion: false },
   ])
+  const [search, setSearch] = useState('')
 
   const addEmployee = (name, salary, id, promotion = false) => {
     if (!name || !salary) {
@@ -60,23 +61,24 @@ function App() {
     return count
   }
 
-  const searchForEmployee = (str) => {
-    const arr = data
+  //!# WAS HAVING PROBLEMS WITH THIS FUNCTIONALITY
+  const searchForEmployee = (str, data) => {
     if (!str) {
-      setData(arr)
+      return data
     }
-    setData(data.filter((empl) => empl.name.includes(str)))
+    return data.filter((empl) => empl.name.includes(str))
   }
+  const visibleEmp = searchForEmployee(search, data)
 
   return (
     <div className='app'>
       <AppInfo total={data.length} willBePromoted={willBePromoted} />
       <div className='search-panel'>
-        <SearchPanel searchForEmployee={searchForEmployee} />
+        <SearchPanel setSearch={setSearch} />
         <AppFilter />
       </div>
       <Employee_list
-        data={data}
+        data={visibleEmp}
         removeEmployee={removeEmployee}
         addPromotion={addPromotion}
       />

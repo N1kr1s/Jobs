@@ -1,12 +1,12 @@
 import './search_panel.css'
 
-function SearchPanel({ searchForEmployee }) {
+function SearchPanel({ setSearch }) {
   return (
     <input
       type='text'
       className='form-control search-input'
       placeholder='Find employee'
-      onChange={(e) => searchForEmployee(e.target.value)}
+      onChange={(e) => setSearch(e.target.value)}
     />
   )
 }
