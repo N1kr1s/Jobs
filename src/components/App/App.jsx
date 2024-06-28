@@ -78,7 +78,9 @@ function App() {
     if (!str) {
       return data
     }
-    return data.filter((empl) => empl.name.toLowerCase().includes(str))
+    return data.filter((empl) =>
+      empl.name.toLowerCase().includes(str.toLowerCase())
+    )
   }
   let visibleEmp = filterPost(searchForEmployee(search, data), filter)
   //!# WAS HAVING PROBLEMS WITH THIS FUNCTIONALITY LOOK TOP|
@@ -88,7 +90,7 @@ function App() {
       <AppInfo total={data.length} willBePromoted={willBePromoted} />
       <div className='search-panel'>
         <SearchPanel setSearch={setSearch} />
-        <AppFilter setFilter={setFilter} />
+        <AppFilter setFilter={setFilter} filter={filter} />
       </div>
       <Employee_list
         data={visibleEmp}
